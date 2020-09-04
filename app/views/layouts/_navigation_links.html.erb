@@ -2,3 +2,13 @@
 <% if policy(:home).show? %>
   <%= link_to 'show', home_path(id:current_user.id), class: 'navbar-brand' %>
 <% end %>
+
+
+
+<% if user_signed_in? %>
+
+  signed in as <%= link_to current_user.email, user_path(current_user.id), class: 'navbar-brand' %> Not you <%= link_to "sign_out",destroy_user_session_path, class: 'navbar-brand'%>
+
+<% else %>
+  <%= link_to "sign In",new_user_session_path, class: 'navbar-brand',"data-turbolinks" => "false"%> Or <%= link_to "sign_up",new_user_registration_path, class: 'navbar-brand',"data-turbolinks" => "false"%>
+<% end %>
