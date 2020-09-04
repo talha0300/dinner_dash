@@ -1,1 +1,4 @@
 <%# add navigation links to this file %>
+<% if policy(:home).show? %>
+  <%= link_to 'show', home_path(id:current_user.id), class: 'navbar-brand' %>
+<% end %>
