@@ -1,3 +1,30 @@
 // Place all the styles related to the items controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+.items{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  flex-grow: 3
+}
+img{
+  height: 300px;
+  width:300px
+}
+
+.item-detail{
+  margin:30px auto;
+  display: flex;
+  justify-content: space-around;
+  img{
+    height: 600px;
+    width:600px;
+  }
+}
+
+.links{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}

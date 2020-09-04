@@ -1,0 +1,12 @@
+<div class="item">
+  <figure class="figure">
+    <%if item.image%>
+      <%= link_to image_tag(item.image),item_path(item)%>
+    <%else%>
+      <%= link_to image_tag(item.image),item_path(item)%>
+    <%end%>
+    <figcaption class="figure-caption"><strong><%= item.title %>:</strong></figcaption>
+    <figcaption class="figure-caption"><strong>Description:</strong><%= item.description %></figcaption>
+    <figcaption class="figure-caption"><strong>Price:</strong><%= item.price %><strong>USD</strong></figcaption>
+    <%= render 'item_links',item: item%>
+</div>

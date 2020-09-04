@@ -7,7 +7,7 @@
 
 <% if user_signed_in? %>
 
-  signed in as <%= link_to current_user.email, user_path(current_user.id), class: 'navbar-brand' %> Not you <%= link_to "sign_out",destroy_user_session_path, class: 'navbar-brand'%>
+  <span class="navbar-brand">signed in as</span> <%= link_to current_user.user_name, user_path(current_user.id), class: 'navbar-brand' %> Not you <%= link_to "sign_out",destroy_user_session_path, class: 'navbar-brand'%>
   <% if policy(Item.new).create? %>
     <%= link_to "Add Item", new_item_path, class: 'navbar-brand' %>
   <% end %>
