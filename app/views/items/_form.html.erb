@@ -1,0 +1,65 @@
+<%= form_with(model: item,class: "form-horizontal",id:"fieldContainerForm",style:'margin:auto',local: true) do |form| %>
+  <% if item.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(item.errors.count, "error") %> prohibited this item from being saved:</h2>
+
+      <ul>
+      <% item.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+
+
+  <div class="form-group">
+    <%= form.label :title ,class: "control-label col-sm-2"%>
+    <div class="col-sm-7">
+      <%= form.text_field :title,class: "form-control",rows:"5" ,required:true%>
+    </div>
+
+  </div>
+
+  <div class="form-group">
+    <%= form.label :description ,class: "control-label col-sm-2"%>
+    <div class="col-sm-7">
+      <%= form.text_area :description,class: "form-control",rows:"5" ,required:true%>
+    </div>
+
+  </div>
+
+  <div class="form-group">
+    <%= form.label :price ,class: "control-label col-sm-2"%>
+    <div class="col-sm-7">
+      <%= form.number_field :price,step: :any,class: "form-control",rows:"5" ,required:true%>
+    </div>
+
+  </div>
+
+  <div class="form-group">
+
+      <%= form.label :image ,class:"control-label col-sm-2"%>
+      <div class="col-sm-7">
+        <% if form_type==="new"%>
+          <%= form.file_field :image,class:"col-sm-7",required:true,accept:'image/*' %>
+        <%else%>
+          <%= form.file_field :image,class:"col-sm-7",accept:'image/*'%>
+        <% end %>
+      </div>
+
+
+  </div>
+  <!--
+  <div class="field">
+    <%= form.label :user_id %>
+    <%= form.text_field :user_id %>
+  </div>
+  -->
+  <div class="form-group">
+    <div class="col-sm-offset-5 col-sm-10",style='background-color:green;'>
+        <%= form.submit%>
+    </div>
+
+  </div>
+<% end %>
