@@ -1,0 +1,16 @@
+<h1>Assign categorizations</h1>
+<%= form_with(model: @categorization, local: true) do |form| %>
+
+  <div class="field">
+    <%= form.label :item %>
+    <%= form.select :item, @items%>
+  </div>
+  <div class="field">
+    <%= form.label :category %>
+    <%= form.select :category, @categories%>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

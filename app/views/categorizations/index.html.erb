@@ -1,0 +1,15 @@
+<h1> Item's categories</h1>
+<table>
+  <tr>
+    <th>Item</th>
+    <th>Category</th>
+    <th>
+  </tr>
+  <% @categorizations.each do |categorization|%>
+  <tr>
+    <th><%= categorization[2]%></th>
+    <th><%= categorization[1]%></th>
+    <td><%= link_to 'UnAssign', categorization_path(categorization[0]), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+  <%end%>
+</table>
