@@ -18,7 +18,7 @@ class CategorizationsController < ApplicationController
   def create
     @item=Item.find_by(title:params[:categorization][:item])
     @category=Category.find_by(name:params[:categorization][:category])
-    #debugger
+    
     @categorization=Categorization.new(item_id:@item.id,category_id:@category.id)
     if @categorization.save
       redirect_to new_categorization_path, :flash => { :success => "Successfully assigned category to item" }
