@@ -3,19 +3,51 @@ class ApplicationController < ActionController::Base
 
   protect_from_forgery with: :exception
   before_action :configure_permitted_parameters, if: :devise_controller?
-  before_action :currert_shopping_cart
+  #before_action :reset_session
+  #before_action :create_guest
+  #before_action :currert_shopping_cart
+
+
+
 
 
   def currert_shopping_cart
 
-    if session[:shopping_cart]
-      @shopping_cart= session[:shopping_cart]
+    if user_signed_in?
+      if session[:shopping_cart]
+        @shopping_cart= session[:shopping_cart]
+        session[:shopping_cart]=@shopping_cart
+      else
+        @shopping_cart=Cart.create(user_id:current_user.id)
+      end
     else
-      @shopping_cart=Cart.create
-      session[:shopping_cart]=@shopping_cart
-    end
 
-    debugger
+      if session[:shopping_cart]
+        @shopping_cart= session[:shopping_cart]
+      else
+        @shopping_cart=Cart.create(user_id:session[:guest_user_id])
+
+        session[:shopping_cart]=@shopping_cart
+      end
+    end
+  end
+
+  def create_guest
+
+    if !(user_signed_in? || session[:guest])
+
+      session[:guest_user_id]=save_guest.id
+
+    end
+  end
+
+  def save_guest
+    guest_user_name="guest"+(0...rand(25)).map { (65 + rand(26)).chr }.join
+    guest_email="guest"+(0...rand(25)).map { (65 + rand(26)).chr }.join + "@unknown.com"
+    user= User.create(user_name:guest_user_name,email:guest_email)
+    user.save(validate: false)
+    session[:guest]=true
+    user
   end
 
   protected
