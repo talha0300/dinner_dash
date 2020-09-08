@@ -4,15 +4,15 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   before_action :configure_permitted_parameters, if: :devise_controller?
   #before_action :reset_session
-  #before_action :create_guest
-  #before_action :currert_shopping_cart
+  before_action :create_guest
+  before_action :currert_shopping_cart
 
 
 
 
 
   def currert_shopping_cart
-
+    
     if user_signed_in?
       if session[:shopping_cart]
         @shopping_cart= session[:shopping_cart]
@@ -25,11 +25,12 @@ class ApplicationController < ActionController::Base
       if session[:shopping_cart]
         @shopping_cart= session[:shopping_cart]
       else
-        @shopping_cart=Cart.create(user_id:session[:guest_user_id])
-
+        @shopping_cart=Cart.new(user_id:session[:guest_user_id])
+        @shopping_cart.save(validate: false)
         session[:shopping_cart]=@shopping_cart
       end
     end
+
   end
 
   def create_guest
