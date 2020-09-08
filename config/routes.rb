@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   resources :categories
+  resources :carts, only:[:show]
   resources :categorizations
   resources :home, only: [:show,:index]
   devise_for :users, controllers: {sessions: 'users/sessions',registrations:'users/registrations'}
@@ -10,6 +11,7 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   root to: "home#index"
   resources :items do
+    resources :carts, only:[:create,:destroy]
     resources:categories,only:[:create,:edit,:update,:new]
   end
   resources :users, only: [:show,:index]

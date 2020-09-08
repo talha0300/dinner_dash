@@ -1,10 +1,11 @@
+<%if user_signed_in?%>
+  <%if policy(item).create?%>
+  <div class="links">
 
-<%if policy(item).create?%>
-<div class="links">
+      <%= link_to 'Show', item_path(item) ,style:'color:blue'%>
+      <%= link_to 'Edit', edit_item_path(item) ,style:'color:green'%>
+      <%= link_to 'Destroy', item_path(item), method: :delete, data: { confirm: 'Are you sure?' } ,style:'color:red',remote: true,class:"delete"%>
 
-    <%= link_to 'Show', item_path(item) ,style:'color:blue'%>
-    <%= link_to 'Edit', edit_item_path(item) ,style:'color:green'%>
-    <%= link_to 'Destroy', item_path(item), method: :delete, data: { confirm: 'Are you sure?' } ,style:'color:red',remote: true,class:"delete"%>
-    
-</div>
+  </div>
+  <%end%>
 <%end%>
