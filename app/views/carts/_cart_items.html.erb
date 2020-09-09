@@ -1,0 +1,47 @@
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Item</th>
+      <th>Quantity</th>
+      <th>Price</th>
+      <% if view==='cart'%>
+        <th></th>
+      <%end%>
+      </tr>
+  </thead>
+  <tbody>
+    <% items.each do |item|%>
+      <tr>
+        <th> <strong> <%= link_to item[1],item_path(item[0])%> </strong></th>
+        <th><%= item[2]%></th>
+
+        <th><%= item[3]*item[2]%></th>
+        <% if view==='cart'%>
+        <th> <%= link_to 'Remove', item_cart_path(item_id:item[0]), method: :delete, data: { confirm: 'Are you sure?' } ,remote: true,class:"btn-link"%> </th>
+        <%end%>
+      </tr>
+    <%end%>
+  </tbody>
+  <tfoot>
+    <tr>
+      <% if view==='cart'%>
+      <th></th>
+      <th>
+        <% if !items.empty?%>
+          <%= link_to 'Proceed to checkout',orders_path,method: :post,class:"btn-success"%>
+        <%end%>
+      </th>
+      <th></th>
+      <%else%>
+        <th><strong>SUM:</strong></th>
+        <th>
+          <%= order[:total_amount]%>
+        </th>
+      <%end%>
+
+    </tr>
+
+  </tfoot>
+
+
+</table>

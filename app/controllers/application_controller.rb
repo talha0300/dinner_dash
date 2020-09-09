@@ -6,19 +6,18 @@ class ApplicationController < ActionController::Base
   #before_action :reset_session
   before_action :create_guest
   before_action :currert_shopping_cart
+  helper_method :current_user
 
 
 
 
 
   def currert_shopping_cart
-    
+
     if user_signed_in?
-      if session[:shopping_cart]
-        @shopping_cart= session[:shopping_cart]
-        session[:shopping_cart]=@shopping_cart
-      else
+      if !session[:shopping_cart]
         @shopping_cart=Cart.create(user_id:current_user.id)
+        session[:shopping_cart]=@shopping_cart
       end
     else
 
