@@ -8,11 +8,8 @@ Rails.application.routes.draw do
   devise_scope :user do
     get '/users/sign_out' => 'users/sessions#destroy'
   end
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+
   root to: "home#index"
-  resources :items do
-    resources :carts, only:[:create,:destroy]
-    resources:categories,only:[:create,:edit,:update,:new]
-  end
+  resources :items
   resources :users, only: [:show,:index]
 end

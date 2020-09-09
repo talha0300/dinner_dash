@@ -16,14 +16,17 @@ class CategorizationsController < ApplicationController
   end
 
   def create
-    @item=Item.find_by(title:params[:categorization][:item])
-    @category=Category.find_by(name:params[:categorization][:category])
-    
-    @categorization=Categorization.new(item_id:@item.id,category_id:@category.id)
-    if @categorization.save
-      redirect_to new_categorization_path, :flash => { :success => "Successfully assigned category to item" }
+    item=Item.find_by(title:params[:categorization][:item])
+    category=Category.find_by(name:params[:categorization][:category])
+    if item && category
+
+      if Categorization.assign_category(item,category)
+        redirect_to new_categorization_path, :flash => { :success => "Successfully assigned category to item" }
+      else
+        redirect_to new_categorization_path, :flash => { :error => "Error: may be category already assigned to item" }
+      end
     else
-      redirect_to new_categorization_path, :flash => { :error => "Error: may be category already assigned to item" }
+      redirect_to new_categorization_path, :flash => { :error => "Category or Item not found" }
     end
   end
 
@@ -39,7 +42,7 @@ class CategorizationsController < ApplicationController
   private
 
     def set_categorization
-      @categorization = Categorization.find_by(id:params[:id])
+      @categorization = Categorization.find(params[:id])
     end
     def set_data
       @items=Item.all.pluck(:title)
