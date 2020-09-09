@@ -10,6 +10,8 @@ Rails.application.routes.draw do
   end
 
   root to: "home#index"
-  resources :items
+  resources :items do
+    resources:carts, only:[:create,:destroy]
+  end
   resources :users, only: [:show,:index]
 end
