@@ -23,13 +23,17 @@ class CategoriesController < ApplicationController
 
   def create
     @category = Category.new(category_params)
-
     respond_to do |format|
-      if @category.save
-        format.html { redirect_to @category, notice: 'Category was successfully created.' }
-        format.json { render :show, status: :created, location: @category }
+      if !@category.alreadyexist?
+        if @category.save
+          format.html { redirect_to @category, notice: 'Category was successfully created.' }
+          format.json { render :show, status: :created, location: @category }
+        else
+          format.html { render :new,notice: 'Unknown error occured.' }
+          format.json { render json: @category.errors, status: :unprocessable_entity }
+        end
       else
-        format.html { render :new }
+        format.html { render :new,notice: 'Category already exists' }
         format.json { render json: @category.errors, status: :unprocessable_entity }
       end
     end
@@ -64,7 +68,7 @@ class CategoriesController < ApplicationController
     end
 
 
-    
+
     def category_params
       params.require(:category).permit(:name)
     end
