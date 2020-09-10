@@ -1,6 +1,5 @@
 class ApplicationController < ActionController::Base
   include Pundit
-
   protect_from_forgery with: :exception
   before_action :configure_permitted_parameters, if: :devise_controller?
   #before_action :reset_session
@@ -12,7 +11,7 @@ class ApplicationController < ActionController::Base
 
 
   def currert_shopping_cart
-    
+
     if user_signed_in?
       if session[:shopping_cart]
         @shopping_cart= session[:shopping_cart]

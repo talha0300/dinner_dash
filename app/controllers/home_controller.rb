@@ -7,4 +7,8 @@ class HomeController < ApplicationController
     authorize :home, :show?
     @user =User.find(params[:id])
   end
+
+  def record_not_found
+
+  end
 end

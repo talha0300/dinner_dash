@@ -2,6 +2,7 @@
 <table class="table table-striped">
   <thead>
     <tr>
+      
       <th>Item</th>
       <th>Quantity</th>
       <th></tr>
@@ -9,9 +10,10 @@
   <tbody>
     <% @cart_items.each do |item|%>
       <tr>
-        <th><%= item[1]%></th>
-        <th> <strong> <%= link_to item[2],item_path(item[0])%> </strong></th>
-        <th> <%= link_to 'Remove', item_cart_path(item_id:item[0]), method: :delete, data: { confirm: 'Are you sure?' } ,style:'color:red',remote: true,class:"delete"%></th>
+
+        <th> <strong> <%= link_to item.title,item_path(item.id)%> </strong></th>
+        <th><%= item.quantity%></th>
+        <th> <%= link_to 'Remove', item_cart_path(item_id:item.id), method: :delete, data: { confirm: 'Are you sure?' } ,style:'color:red',remote: true,class:"delete"%></th>
       </tr>
     <%end%>
   </tbody>
