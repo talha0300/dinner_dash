@@ -23,23 +23,53 @@
     <%end%>
   </tbody>
   <tfoot>
-    <tr>
+
       <% if view==='cart'%>
-      <th></th>
-      <th>
-        <% if !items.empty?%>
-          <%= link_to 'Proceed to checkout',orders_path,method: :post,class:"btn-success"%>
-        <%end%>
-      </th>
-      <th></th>
+      <tr>
+        <th></th>
+        <th>
+          <% if !items.empty?%>
+            <%= link_to 'Proceed to checkout',orders_path,method: :post,class:"btn-success"%>
+          <%end%>
+        </th>
+        <th></th>
+      </tr>
+
       <%else%>
+      <tr>
+        <th></th>
         <th><strong>SUM:</strong></th>
         <th>
           <%= order[:total_amount]%>
         </th>
-      <%end%>
+      </tr>
 
-    </tr>
+      <tr>
+        <th></th>
+        <th><strong>Created At:</strong></th>
+        <th>
+          <%= order[:created_at]%>
+        </th>
+      </tr>
+      <tr>
+        <th></th>
+        <th><strong>Status:</strong></th>
+        <th>
+          <%= order[:status]%>
+        </th>
+      </tr>
+        <% if order[:status]==="completed" || order[:status]==="cancelled"%>
+        <tr>
+          <th></th>
+          <th><strong><%= "Order "+order[:status]+" at :"%></strong></th>
+          <th>
+            <%= order[:updated_at]%>
+          </th>
+        </tr>
+        <%end%>
+      <%end%>
+      <%= render partial:'orders/order_links',locals:{order:order,view:view}%>
+
 
   </tfoot>
 

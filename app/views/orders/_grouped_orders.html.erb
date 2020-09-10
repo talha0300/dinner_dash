@@ -1,0 +1,21 @@
+
+<table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Order Status</th>
+        <th>No. of Orders</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% grouped_orders.each do |status|%>
+        <tr>
+          <th><strong><%=status[0]%></strong></th>
+          <th><%=status[1]%></th>
+        </tr>
+      <%end%>
+
+    </tbody>
+    <tfoot>
+
+    </tfoot>
+</table>

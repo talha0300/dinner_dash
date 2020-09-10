@@ -1,6 +1,7 @@
 class Order < ApplicationRecord
   belongs_to :cart
-  enum status: [:ordered,:completed,:cancelled]
+  enum status: [:ordered,:completed,:cancelled,:paid]
+  TYPE={ordered:"ordered",completed:"completed",cancelled:"cancelled",paid:"paid",all:"all"}
 
   after_initialize do
     if self.new_record?
@@ -25,5 +26,23 @@ class Order < ApplicationRecord
       total+=item[0]*item[1]
     end
     total
+  end
+
+  def self.get_orders(params)
+    if params[:orders_type]===Order::TYPE[:all]
+      orders=Order.all.order("created_at DESC")
+
+    elsif params[:orders_type]===Order::TYPE[:ordered]
+      orders=Order.where(status:Order::TYPE[:ordered]).order("created_at DESC")
+
+    elsif params[:orders_type]===Order::TYPE[:paid]
+      orders=Order.where(status:Order::TYPE[:paid]).order("created_at DESC")
+
+    elsif params[:orders_type]===Order::TYPE[:completed]
+      orders=Order.where(status:Order::TYPE[:completed]).order("created_at DESC")
+
+    else
+      orders=Order.where(status:Order::TYPE[:cancelled]).order("created_at DESC")
+    end
   end
 end
