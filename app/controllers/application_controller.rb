@@ -46,6 +46,19 @@ class ApplicationController < ActionController::Base
     user
   end
 
+
+  def assign_guest_cart_to_user
+
+    session[:guest]=false
+    @shopping_cart=Cart.find_by(id:session[:shopping_cart]['id'])
+    @shopping_cart.update!(user_id:current_user.id)
+    User.find_by(id:session[:guest_user_id]).destroy
+    session[:guest_user_id]=nil
+    session[:shopping_cart]=@shopping_cart
+
+
+  end
+
   protected
     def configure_permitted_parameters
       devise_parameter_sanitizer.permit(:sign_up) { |u| u.permit(:user_name,:display_name, :email, :password)}

@@ -7,11 +7,19 @@ class ItemPolicy < ApplicationPolicy
   end
 
   def create?
-    user.admin?
+    if user
+      user.admin?
+    else
+      false
+    end
   end
 
   def update?
-    user.admin?
+    if user
+      user.admin?
+    else
+      false
+    end
   end
 
 
