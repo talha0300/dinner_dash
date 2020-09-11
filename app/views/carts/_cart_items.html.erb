@@ -12,12 +12,12 @@
   <tbody>
     <% items.each do |item|%>
       <tr>
-        <th> <strong> <%= link_to item[1],item_path(item[0])%> </strong></th>
-        <th><%= item[2]%></th>
+        <th> <strong> <%= link_to item[:title],item_path(item[:id])%> </strong></th>
+        <th><%= item[:quantity]%></th>
 
-        <th><%= item[3]*item[2]%></th>
+        <th><%= item[:price]*item[:quantity]%></th>
         <% if view==='cart'%>
-        <th> <%= link_to 'Remove', item_cart_path(item_id:item[0]), method: :delete, data: { confirm: 'Are you sure?' } ,remote: true,class:"btn-link"%> </th>
+        <th> <%= link_to 'Remove', item_cart_path(item_id:item[:id]), method: :delete, data: { confirm: 'Are you sure?' } ,remote: true,class:"btn-link"%> </th>
         <%end%>
       </tr>
     <%end%>
@@ -68,7 +68,9 @@
         </tr>
         <%end%>
       <%end%>
-      <%= render partial:'orders/order_links',locals:{order:order,view:view}%>
+      <% if view==="order"%>
+        <%= render partial:'orders/order_links',locals:{order:order,view:view}%>
+      <%end%>
 
 
   </tfoot>

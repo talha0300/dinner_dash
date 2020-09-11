@@ -4,7 +4,7 @@ class CartItem < ApplicationRecord
 
 
   def self.get_cart_items(cart)
-    #CartItem.joins("INNER JOIN items ON cart_items.item_id=items.id").where(cart_id:cart.id).pluck(:item_id,:title,:quantity)
-    CartItem.select("items.id, items.title,cart_items.quantity").joins("INNER JOIN items ON cart_items.item_id=items.id").where(cart_id:cart.id)
+
+    CartItem.select("items.id, items.title,cart_items.quantity,items.price").joins("INNER JOIN items ON cart_items.item_id=items.id").where(cart_id:cart.id)
   end
 end

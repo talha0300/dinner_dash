@@ -5,10 +5,10 @@ class OrdersController < ApplicationController
   def show
     @order=Order.find(params[:id])
     @cart=@order.cart
-    @order_items=CartItem.joins("INNER JOIN items ON cart_items.item_id=items.id").where(cart_id:@cart.id).pluck(:item_id,:title,:quantity,:price)
+    @order_items=CartItem.get_cart_items(@cart)
   end
 
-  
+
 
   def create
     @order=Order.place_order(@cart)
@@ -32,7 +32,7 @@ class OrdersController < ApplicationController
 
   # For Admin
   def single_order
-
+    
   end
 
   #for admin

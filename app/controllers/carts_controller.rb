@@ -4,7 +4,9 @@ class CartsController < ApplicationController
 
 
   def show
+
     @cart_items= CartItem.get_cart_items(@cart)
+    
   end
 
 
