@@ -2,7 +2,10 @@ class ItemsController < ApplicationController
   before_action :set_item, only: [:show, :edit, :update, :destroy,:toggle_retire]
 
   def index
-    @items=Item.all
+
+    @items=Item.get_items(get_filter)
+    @categories=Category.get_categories(get_filter)
+
   end
 
   def show
@@ -15,7 +18,6 @@ class ItemsController < ApplicationController
 
   def create
     @item=Item.new(item_params)
-    debugger
     authorize @item
     if @item.save
       redirect_to root_path
@@ -45,6 +47,7 @@ class ItemsController < ApplicationController
 
 
   def toggle_retire
+    authorize @item,:update?
     if params[:type]==="retired"
       @item.update(retird:false)
       redirect_to items_path,:flash => { :success => "Successfully UnRetired an item" }
@@ -55,11 +58,20 @@ class ItemsController < ApplicationController
 
   end
 
+
   private
     def item_params
       params.require(:item).permit(:title,:description,:price,:image)
     end
     def set_item
       @item = Item.find_by(id:params[:id])
+    end
+    def get_filter
+      if params[:Category]
+        params[:Category][:name]
+      else
+        params[:Category]
+      end
+
     end
 end

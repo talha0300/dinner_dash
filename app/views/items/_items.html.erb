@@ -1,3 +1,5 @@
+
+<%= render partial:'filter',locals:{categories:@categories}%>
 <div class="items">
     <% @items.each do |item|%>
       <%= render 'item' ,item: item%>
