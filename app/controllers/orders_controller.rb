@@ -2,6 +2,11 @@ class OrdersController < ApplicationController
   before_action :set_cart ,only:[:create]
   before_action :set_order,only:[:single_order,:mark_complete_order,:mark_paid_order,:cancel_order]
 
+
+  def index
+    @orders=Order.where(user_id:current_user.id).order("created_at DESC")
+  end
+
   def show
     @order=Order.find(params[:id])
     @cart=@order.cart
@@ -32,7 +37,7 @@ class OrdersController < ApplicationController
 
   # For Admin
   def single_order
-    
+
   end
 
   #for admin

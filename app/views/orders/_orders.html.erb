@@ -1,6 +1,9 @@
 
-<h1>Orders Details</h1>
-<%= render 'order_type_links'%>
+
+<% if type != "user"%>
+  <h1>Orders Details</h1>
+  <%= render 'order_type_links'%>
+<% end %>
 <table class="table table-striped">
     <thead>
       <tr>
