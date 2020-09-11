@@ -58,16 +58,16 @@
           <%= order[:status]%>
         </th>
       </tr>
-        <% if order[:status]==="completed" || order[:status]==="cancelled"%>
+        <% if order[:status]===Order::TYPE[:completed] || order[:status]===Order::TYPE[:cancelled]%>
         <tr>
           <th></th>
-          <th><strong><%= "Order "+order[:status]+" at :"%></strong></th>
+          <th><strong><%= "Order #{order[:status]} at:"%></strong></th>
           <th>
             <%= order[:updated_at]%>
           </th>
         </tr>
         <%end%>
-        
+
       <%end%>
       <% if view==="order"%>
         <%= render partial:'orders/order_links',locals:{order:order,view:view}%>
