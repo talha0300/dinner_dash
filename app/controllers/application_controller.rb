@@ -1,6 +1,5 @@
 class ApplicationController < ActionController::Base
   include Pundit
-
   protect_from_forgery with: :exception
   before_action :configure_permitted_parameters, if: :devise_controller?
   #before_action :reset_session
@@ -24,8 +23,7 @@ class ApplicationController < ActionController::Base
       if session[:shopping_cart]
         @shopping_cart= session[:shopping_cart]
       else
-        @shopping_cart=Cart.new(user_id:session[:guest_user_id])
-        @shopping_cart.save(validate: false)
+        @shopping_cart=Cart.create(user_id:session[:guest_user_id])
         session[:shopping_cart]=@shopping_cart
       end
     end
@@ -42,9 +40,7 @@ class ApplicationController < ActionController::Base
   end
 
   def save_guest
-    guest_user_name="guest"+(0...rand(25)).map { (65 + rand(26)).chr }.join
-    guest_email="guest"+(0...rand(25)).map { (65 + rand(26)).chr }.join + "@unknown.com"
-    user= User.create(user_name:guest_user_name,email:guest_email)
+    user= User.new(user_name:"guest#{(0...rand(25)).map { (65 + rand(26)).chr }.join}",email:"guest#{(0...rand(25)).map { (65 + rand(26)).chr }.join}@unknown.com")
     user.save(validate: false)
     session[:guest]=true
     user

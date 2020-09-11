@@ -31,7 +31,7 @@ class Users::SessionsController < Devise::SessionsController
     User.find_by(id:session[:guest_user_id]).destroy
     session[:guest_user_id]=nil
     session[:shopping_cart]=@shopping_cart
-    
+
 
   end
 
