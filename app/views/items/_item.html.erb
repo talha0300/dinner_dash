@@ -9,6 +9,14 @@
     <figcaption class="figure-caption"><strong><%= item.title %>:</strong></figcaption>
     <figcaption class="figure-caption"><strong>Description:</strong><%= item.description %></figcaption>
     <figcaption class="figure-caption"><strong>Price:</strong><%= item.price %><strong>USD</strong></figcaption>
-    <figcaption class="figure-caption text-right"><%= link_to "Add To Cart",item_carts_path(item),method: :post,type:"button",class:"btn" %></figcaption>
+    <% if !item[:retird] && !policy(Item).create?%>
+      <figcaption class="figure-caption text-right"><%= link_to "Add To Cart",item_carts_path(item),method: :post,type:"button",class:"btn" %></figcaption>
+    <%elsif item[:retird] && policy(Item).create?%>
+      <figcaption class="figure-caption text-right"> <%= link_to "Retired",toggle_retire_item_path(item,type:"retired"),method: :post,type:"button",class:"btn" %> </figcaption>
+    <%elsif !item[:retird] && policy(Item).create?%>
+      <figcaption class="figure-caption text-right"> <%= link_to "Retire",toggle_retire_item_path(item,type:"retire"),method: :post,type:"button",class:"btn" %></figcaption>
+    <%else%>
+      <figcaption class="figure-caption text-right"><span>NOt Available</span></figcaption>
+    <%end%>
     <%= render 'item_links',item: item%>
 </div>

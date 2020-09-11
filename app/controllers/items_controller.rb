@@ -1,5 +1,5 @@
 class ItemsController < ApplicationController
-  before_action :set_item, only: [:show, :edit, :update, :destroy]
+  before_action :set_item, only: [:show, :edit, :update, :destroy,:toggle_retire]
 
   def index
     @items=Item.all
@@ -41,6 +41,18 @@ class ItemsController < ApplicationController
     if @item.destroy
       redirect_to items_path
     end
+  end
+
+
+  def toggle_retire
+    if params[:type]==="retired"
+      @item.update(retird:false)
+      redirect_to items_path,:flash => { :success => "Successfully UnRetired an item" }
+    else
+      @item.update(retird:true)
+      redirect_to items_path,:flash => { :success => "Successfully retired an item" }
+    end
+
   end
 
   private
