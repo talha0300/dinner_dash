@@ -29,6 +29,7 @@ class OrdersController < ApplicationController
 
   # For Admin
   def all_orders
+    authorize Item,:create?, policy_class:ItemPolicy
     @grouped_orders=Order.group(:status).count
     @orders=Order.get_orders(params)
   end
@@ -37,11 +38,12 @@ class OrdersController < ApplicationController
 
   # For Admin
   def single_order
-
+    authorize Item,:create?, policy_class:ItemPolicy
   end
 
   #for admin
   def mark_paid_order
+    authorize Item,:create?, policy_class:ItemPolicy
     if @order.mark_paid
       redirect_to single_order_order_path(@order.id),flash:{ success:"Successfully marked order as paid" }
     else
@@ -51,6 +53,7 @@ class OrdersController < ApplicationController
 
   # for Admin
   def mark_complete_order
+    authorize Item,:create?, policy_class:ItemPolicy
     if @order.mark_completed
       redirect_to single_order_order_path(@order.id),flash:{ success:"Successfully marked order as completed" }
     else

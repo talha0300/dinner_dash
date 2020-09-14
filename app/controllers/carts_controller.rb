@@ -6,7 +6,7 @@ class CartsController < ApplicationController
   def show
 
     @cart_items= CartItem.get_cart_items(@cart)
-    
+
   end
 
 
@@ -25,6 +25,7 @@ class CartsController < ApplicationController
   end
 
 
+#destroy function here do not destroy cart but just remove item from cart
 
   def destroy
     @item=Item.find_by(id:params[:item_id])

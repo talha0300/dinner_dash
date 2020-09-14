@@ -4,25 +4,30 @@ class CategoriesController < ApplicationController
 
 
   def index
+    authorize Item,:create?, policy_class:ItemPolicy
     @categories = Category.all
     @categorizations=Categorization.get_assigned_categories
   end
 
 
   def show
+    authorize Item,:create?, policy_class:ItemPolicy
   end
 
 
   def new
+    authorize Item,:create?, policy_class:ItemPolicy
     @category = Category.new
   end
 
 
   def edit
+    authorize Item,:create?, policy_class:ItemPolicy
   end
 
 
   def create
+    authorize Item,:create?, policy_class:ItemPolicy
     @category = Category.new(category_params)
     respond_to do |format|
       if !@category.alreadyexist?
@@ -42,6 +47,7 @@ class CategoriesController < ApplicationController
 
 
   def update
+    authorize Item,:create?, policy_class:ItemPolicy
     respond_to do |format|
       if @category.update(category_params)
         format.html { redirect_to @category, notice: 'Category was successfully updated.' }
@@ -55,6 +61,7 @@ class CategoriesController < ApplicationController
 
 
   def destroy
+    authorize Item,:create?, policy_class:ItemPolicy
     @category.destroy
     respond_to do |format|
       format.html { redirect_to categories_url, notice: 'Category was successfully destroyed.' }

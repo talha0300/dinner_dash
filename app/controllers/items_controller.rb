@@ -40,6 +40,7 @@ class ItemsController < ApplicationController
   end
 
   def destroy
+    authorize @item
     if @item.destroy
       redirect_to items_path
     end
