@@ -8,8 +8,10 @@ class ApplicationController < ActionController::Base
   helper_method :record_not_found
 
 
-  def record_not_found
 
+
+  def not_found
+    raise ActionController::RoutingError.new('Not Found')
   end
 
 
@@ -45,6 +47,11 @@ class ApplicationController < ActionController::Base
     session[:guest]=true
     user=User.save_guest
   end
+
+
+
+
+
 
   protected
     def configure_permitted_parameters
