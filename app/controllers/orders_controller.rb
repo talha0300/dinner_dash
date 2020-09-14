@@ -4,7 +4,7 @@ class OrdersController < ApplicationController
 
 
   def index
-    @orders=Order.where(user_id:current_user.id).order("created_at DESC")
+    @orders=Order.recent_orders(current_user)
   end
 
   def show
@@ -20,9 +20,9 @@ class OrdersController < ApplicationController
     if @order
       cart=Cart.get_new_cart(current_user.id)
       session[:shopping_cart]=cart
-      redirect_to @order, :flash => { :success => "Successfully placed an order" }
+      redirect_to @order, flash:{ success:"Successfully placed an order" }
     else
-      redirect_to @cart, :flash => { :success => "Unknown Error Occured" }
+      redirect_to @cart, flash:{ success:"Operation Failed" }
     end
   end
 
@@ -42,28 +42,28 @@ class OrdersController < ApplicationController
 
   #for admin
   def mark_paid_order
-    if @order.update(status:"paid")
-      redirect_to single_order_order_path(@order.id),:flash => { :success => "Successfully marked order as paid" }
+    if @order.mark_paid
+      redirect_to single_order_order_path(@order.id),flash:{ success:"Successfully marked order as paid" }
     else
-      redirect_to single_order_order_path(@order.id),:flash => { :success => "Operation Failed" }
+      redirect_to single_order_order_path(@order.id),flash:{ success:"Operation Failed" }
     end
   end
 
   # for Admin
   def mark_complete_order
-    if @order.update(status:"completed")
-      redirect_to single_order_order_path(@order.id),:flash => { :success => "Successfully marked order as completed" }
+    if @order.mark_completed
+      redirect_to single_order_order_path(@order.id),flash:{ success:"Successfully marked order as completed" }
     else
-      redirect_to single_order_order_path(@order.id),:flash => { :success => "Operation Failed" }
+      redirect_to single_order_order_path(@order.id),flash:{ success:"Operation Failed" }
     end
   end
 
   # for admin and users
   def cancel_order
-    if @order.update(status:"cancelled")
-      redirect_to single_order_order_path(@order.id),:flash => { :success => "Successfully cancelled the order" }
+    if @order.cancel
+      redirect_to single_order_order_path(@order.id),flash:{ success:"Successfully cancelled the order" }
     else
-      redirect_to single_order_order_path(@order.id),:flash => { :success => "Operation Failed" }
+      redirect_to single_order_order_path(@order.id),flash:{ success:"Operation Failed" }
     end
   end
   private

@@ -20,16 +20,11 @@ Rails.application.routes.draw do
     end
     member do
       get 'single_order'
-    end
-    member do
       put 'mark_complete_order'
-    end
-    member do
       put 'cancel_order'
-    end
-    member do
       put 'mark_paid_order'
     end
+    
   end
 
   root to: "home#index"
