@@ -1,6 +1,9 @@
 class Category < ApplicationRecord
+  has_many :categorizations,dependent: :destroy
   has_many:items, through: :categorizations
 
+
+  
 
   def self.get_categories(filter)
     categories=Category.all.pluck(:name)

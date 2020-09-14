@@ -5,7 +5,7 @@ class CategorizationsController < ApplicationController
 
 
   def index
-    @categorizations=Categorization.joins(:category,:item).order("title DESC").pluck(:id,:name,:title)
+    @categorizations=Categorization.get_assigned_categories
   end
 
 
@@ -16,14 +16,15 @@ class CategorizationsController < ApplicationController
   end
 
   def create
+
     item=Item.find_by(title:params[:categorization][:item])
     category=Category.find_by(name:params[:categorization][:category])
     if item && category
 
       if Categorization.assign_category(item,category)
-        redirect_to new_categorization_path, :flash => { :success => "Successfully assigned category to item" }
+        redirect_to new_categorization_path, flash:{ success:"Successfully assigned category to item" }
       else
-        redirect_to new_categorization_path, :flash => { :error => "Error: may be category already assigned to item" }
+        redirect_to new_categorization_path, :error => "Error: may be category already assigned to item"
       end
     else
       redirect_to new_categorization_path, :flash => { :error => "Category or Item not found" }
@@ -31,11 +32,11 @@ class CategorizationsController < ApplicationController
   end
 
   def destroy
-
+    session[:return_to] ||= request.referer
     if @categorization.destroy
-      redirect_to categorizations_path,:flash => { :success => "Successfully unassigned category to item" }
+      redirect_to session.delete(:return_to),:flash => { :success => "Successfully unassigned category to item" }
     else
-      redirect_to categorizations_path,:flash => { :success => "Failed to unassign category to item" }
+      redirect_to session.delete(:return_to),:flash => { :success => "Failed to unassign category to item" }
     end
   end
 

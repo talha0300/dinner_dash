@@ -5,6 +5,7 @@ class CategoriesController < ApplicationController
 
   def index
     @categories = Category.all
+    @categorizations=Categorization.get_assigned_categories
   end
 
 

@@ -1,0 +1,21 @@
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Item</th>
+      <th>Category</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% categorizations.each do |categorization|%>
+    <tr>
+      <th><%= categorization.title%></th>
+      <th><%= categorization.name%></th>
+      <td><%= link_to 'UnAssign', categorization_path(categorization.id), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    </tr>
+    <%end%>
+  </tbody>
+
+</table>
+
+<%= link_to 'Assign Categories to Items', new_categorization_path %>

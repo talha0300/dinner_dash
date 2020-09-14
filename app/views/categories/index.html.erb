@@ -25,3 +25,6 @@
 <br>
 
 <%= link_to 'New Category', new_category_path %>
+
+<h1>Item Categories</h1>
+<%= render partial:'categorizations/assigned_categories',locals:{categorizations:@categorizations}%>

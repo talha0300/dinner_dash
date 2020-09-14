@@ -1,20 +1,2 @@
 <h1> Item's categories</h1>
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th>Item</th>
-      <th>Category</th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @categorizations.each do |categorization|%>
-    <tr>
-      <th><%= categorization[2]%></th>
-      <th><%= categorization[1]%></th>
-      <td><%= link_to 'UnAssign', categorization_path(categorization[0]), method: :delete, data: { confirm: 'Are you sure?' } %></td>
-    </tr>
-    <%end%>
-  </tbody>
-
-</table>
+<%= render partial:'assigned_categories',locals:{categorizations:@categorizations}%>
