@@ -8,7 +8,5 @@ class HomeController < ApplicationController
     @user =User.find(params[:id])
   end
 
-  def record_not_found
-
-  end
+  
 end

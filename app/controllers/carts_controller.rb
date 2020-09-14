@@ -17,7 +17,7 @@ class CartsController < ApplicationController
       @cart.add_item(@item)
       redirect_to items_path
     else
-      redirect_to record_not_found_home_path(1)
+      redirect_to record_not_found_home_path
     end
   end
 
@@ -29,7 +29,7 @@ class CartsController < ApplicationController
       @cart.remove_item(@item)
       redirect_to cart_path(@cart)
     else
-      redirect_to record_not_found_home_path(1)
+      redirect_to record_not_found_home_path
     end
   end
 

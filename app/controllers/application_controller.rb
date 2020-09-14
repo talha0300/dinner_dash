@@ -5,9 +5,12 @@ class ApplicationController < ActionController::Base
   #before_action :reset_session
   before_action :create_guest
   before_action :currert_shopping_cart
+  helper_method :record_not_found
 
 
+  def record_not_found
 
+  end
 
 
   def currert_shopping_cart
@@ -39,10 +42,8 @@ class ApplicationController < ActionController::Base
   end
 
   def save_guest
-    user= User.new(user_name:"guest#{(0...rand(25)).map { (65 + rand(26)).chr }.join}",email:"guest#{(0...rand(25)).map { (65 + rand(26)).chr }.join}@unknown.com")
-    user.save(validate: false)
     session[:guest]=true
-    user
+    user=User.save_guest
   end
 
   protected

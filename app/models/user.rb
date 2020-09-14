@@ -11,7 +11,7 @@ class User < ApplicationRecord
     end
   end
 
-  
+
   def guest_user
     User.find_by(id:session[:guest_user_id]) if session[:guest_user_id]
   end
@@ -19,5 +19,12 @@ class User < ApplicationRecord
   def guest?
     !!guest_user
   end
+
+  def self.save_guest
+    user= User.new(user_name:"guest#{(0...rand(25)).map { (65 + rand(26)).chr }.join}",email:"guest#{(0...rand(25)).map { (65 + rand(26)).chr }.join}@unknown.com")
+    user.save(validate: false)
+    user
+  end
+
 
 end

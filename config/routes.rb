@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   resources :carts, only:[:show]
   resources :categorizations
   resources :home, only: [:show,:index] do
-    member do
+    collection do
       get 'record_not_found'
     end
   end
