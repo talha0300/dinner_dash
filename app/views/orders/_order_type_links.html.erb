@@ -1,0 +1,11 @@
+<table  class="table table-striped">
+  <thead>
+    <tr>
+      <th><u><%= link_to "All Orders", all_orders_orders_path(orders_type:Order::TYPE[:all])%></u></th>
+      <th><u><%= link_to "Unpaid Orders",all_orders_orders_path(orders_type:Order::TYPE[:ordered])%></u></th>
+      <th><u><%= link_to "Paid Orders",all_orders_orders_path(orders_type:Order::TYPE[:paid])%></u></th>
+      <th><u><%= link_to "Completed Orders",all_orders_orders_path(orders_type:Order::TYPE[:completed])%></u></th>
+      <th><u><%= link_to "Cancelled Orders",all_orders_orders_path(orders_type:Order::TYPE[:cancelled])%></u></th>
+    </tr>
+  </thead>
+</table>

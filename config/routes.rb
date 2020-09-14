@@ -13,6 +13,20 @@ Rails.application.routes.draw do
     get '/users/sign_out' => 'users/sessions#destroy'
   end
 
+
+  resources :orders do
+    collection do
+      get 'all_orders'
+    end
+    member do
+      get 'single_order'
+      put 'mark_complete_order'
+      put 'cancel_order'
+      put 'mark_paid_order'
+    end
+    
+  end
+
   root to: "home#index"
   resources :items do
     resources:carts, only:[:create,:destroy]

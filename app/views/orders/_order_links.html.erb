@@ -1,0 +1,24 @@
+<% if policy(Item).create? && view==="order"%>
+  <% if order[:status]===Order::TYPE[:paid]%>
+  <tr>
+    <th></th>
+    <th><u><%= link_to 'Mark as Complete',mark_complete_order_order_path(order[:id]),method: :put%></u></th>
+    <th></th>
+  </tr>
+  <%end%>
+  <%if order[:status]===Order::TYPE[:ordered]%>
+  <tr>
+    <th></th>
+    <th><u><%= link_to 'Mark as Paid',mark_paid_order_order_path(order[:id]),method: :put%></u></th>
+    <th></th>
+  </tr>
+  <%end%>
+
+<%end%>
+<%if order[:status]===Order::TYPE[:ordered] or order[:status]===Order::TYPE[:paid]%>
+<tr>
+  <th></th>
+  <th><u><%= link_to 'Cancel Order',cancel_order_order_path(order[:id]),method: :put%></u></th>
+  <th></th>
+</tr>
+<%end%>

@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
   #before_action :reset_session
   before_action :create_guest
   before_action :currert_shopping_cart
-  helper_method :record_not_found
+  helper_method :current_user
 
 
 

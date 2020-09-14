@@ -4,7 +4,9 @@ class CartsController < ApplicationController
 
 
   def show
+
     @cart_items= CartItem.get_cart_items(@cart)
+    
   end
 
 
@@ -38,7 +40,6 @@ class CartsController < ApplicationController
 
   private
     def set_cart
-
       @cart=Cart.find_by(id:session[:shopping_cart]['id'])
     end
 end
