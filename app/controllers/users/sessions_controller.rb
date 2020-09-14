@@ -23,17 +23,7 @@ class Users::SessionsController < Devise::SessionsController
 
   end
 
-  def assign_guest_cart_to_user
 
-    session[:guest]=false
-    @shopping_cart=Cart.find_by(id:session[:shopping_cart]['id'])
-    @shopping_cart.update!(user_id:current_user.id)
-    User.find_by(id:session[:guest_user_id]).destroy
-    session[:guest_user_id]=nil
-    session[:shopping_cart]=@shopping_cart
-
-
-  end
 
   def after_logout_setup
     reset_session

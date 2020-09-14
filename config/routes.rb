@@ -27,9 +27,15 @@ Rails.application.routes.draw do
     
   end
 
-  root to: "home#index"
+  root to: "items#index"
   resources :items do
     resources:carts, only:[:create,:destroy]
+    member do
+      post 'toggle_retire'
+    end
+    member do
+      post 'filter'
+    end
   end
   resources :users, only: [:show,:index]
 end

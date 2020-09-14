@@ -1,0 +1,6 @@
+<h2>Filter</h2>
+
+<%= form_for :Category, url: items_url, method: :get do |form| %>
+  <%= form.select :name, categories%>
+  <%= form.submit "Filter" %>
+<% end  %>
