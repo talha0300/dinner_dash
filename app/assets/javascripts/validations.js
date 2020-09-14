@@ -1,5 +1,5 @@
 $(document).ready(function() {
-    
+
     $('#new_user').bootstrapValidator({
         feedbackIcons: {
             valid: 'glyphicon glyphicon-ok',
@@ -8,7 +8,7 @@ $(document).ready(function() {
         },
         fields: {
             'user[email]': {
-                //container: '#user[email]Message',
+
                 validators: {
                     notEmpty: {
                         message: 'The email is required'
@@ -16,7 +16,7 @@ $(document).ready(function() {
                 }
             },
             'user[user_name]': {
-                //container: '#user[email]Message',
+
                 validators: {
                     notEmpty: {
                         message: 'The email is required'
@@ -24,11 +24,9 @@ $(document).ready(function() {
                 }
             },
             'user[display_name]': {
-                //container: '#user[email]Message',
+
                 validators: {
-                    notEmpty: {
-                        message: 'The email is required'
-                    },
+                    
                     stringLength: {
                         min: 2,
                         max: 32,
