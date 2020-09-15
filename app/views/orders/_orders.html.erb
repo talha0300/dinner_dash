@@ -18,7 +18,7 @@
         <tr>
           <th><%= link_to "order",order_path(order[:id])%></th>
           <% user=get_user(order[:user_id])%>
-          <th><strong><u>Name:</u></strong><%=" "+user.user_name+" "%><strong><u>Email:</u></strong><%= " "+user.email%></th>
+          <th><strong><u>Name:</u></strong><%=" #{user.user_name} "%><strong><u>Email:</u></strong><%= " "+user.email%></th>
           <th><%=order[:created_at]%></th>
           <th><%=order[:status]%></th>
         </tr>

@@ -19,18 +19,18 @@ $(document).ready(function() {
 
                 validators: {
                     notEmpty: {
-                        message: 'The email is required'
+                        message: 'Email is required'
                     }
                 }
             },
             'user[display_name]': {
 
                 validators: {
-                    
+
                     stringLength: {
                         min: 2,
                         max: 32,
-                        message: 'The display_name must be more than 2 and less than 32 characters long'
+                        message: 'Display name must be more than 2 and less than 32 characters long'
                     }
                 }
             },
@@ -38,12 +38,12 @@ $(document).ready(function() {
                 //container: '#user[password]Message',
                 validators: {
                     notEmpty: {
-                        message: 'The password is required'
+                        message: 'Password is required'
                     },
                     stringLength: {
                         min: 6,
                         max: 30,
-                        message: 'The password must be more than 6 and less than 30 characters long'
+                        message: 'Password must be more than 6 and less than 30 characters long'
                     }
                 }
             },
@@ -51,12 +51,12 @@ $(document).ready(function() {
                 //container: '#user[password_confirmation]Message',
                 validators: {
                     notEmpty: {
-                        message: 'The password is required'
+                        message: 'Password is required'
                     },
                     stringLength: {
                         min: 6,
                         max: 30,
-                        message: 'The password must be more than 6 and less than 30 characters long'
+                        message: 'Password must be more than 6 and less than 30 characters long'
                     }
                 }
             }

@@ -1,10 +1,6 @@
 class HomePolicy < Struct.new(:user, :home)
 
   def show?
-    if user
-      user.role == 'admin'
-    else
-      false
-    end
+    user ? user.role == 'admin' : false
   end
 end

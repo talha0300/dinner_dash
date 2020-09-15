@@ -40,7 +40,7 @@ class Order < ApplicationRecord
         orders=self.where(status:self::TYPE[:paid]).sort
     when self::TYPE[:completed]
         orders=self.where(status:self::TYPE[:completed]).sort
-    else
+    when self::TYPE[:cancelled]
         orders=self.where(status:self::TYPE[:cancelled]).sort
     end
 

@@ -14,6 +14,9 @@ class ApplicationController < ActionController::Base
     raise ActionController::RoutingError.new('Not Found')
   end
 
+  def authorization
+    authorize Item,:create?, policy_class:ItemPolicy
+  end
 
   def currert_shopping_cart
 
@@ -54,7 +57,7 @@ class ApplicationController < ActionController::Base
       session[:guest]=false
       @shopping_cart=Cart.find_by(id:session[:shopping_cart]['id'])
       @shopping_cart.update!(user_id:current_user.id)
-      User.find_by(id:session[:guest_user_id]).destroy
+      User.find_by(id:session[:guest_user_id])&.destroy
       session[:guest_user_id]=nil
       session[:shopping_cart]=@shopping_cart
     end

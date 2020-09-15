@@ -2,11 +2,7 @@ Rails.application.routes.draw do
   resources :categories
   resources :carts, only:[:show]
   resources :categorizations
-  resources :home, only: [:show,:index] do
-    collection do
-      get 'record_not_found'
-    end
-  end
+  resources :home, only: [:show,:index]
   devise_for :users, controllers: {sessions: 'users/sessions',registrations:'users/registrations'}
 
   devise_scope :user do
@@ -24,7 +20,7 @@ Rails.application.routes.draw do
       put 'cancel_order'
       put 'mark_paid_order'
     end
-    
+
   end
 
   root to: "items#index"
@@ -32,8 +28,6 @@ Rails.application.routes.draw do
     resources:carts, only:[:create,:destroy]
     member do
       post 'toggle_retire'
-    end
-    member do
       post 'filter'
     end
   end

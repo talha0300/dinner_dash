@@ -3,7 +3,7 @@ class Category < ApplicationRecord
   has_many:items, through: :categorizations
 
 
-  
+
 
   def self.get_categories(filter)
     categories=Category.all.pluck(:name)
@@ -15,9 +15,7 @@ class Category < ApplicationRecord
   end
 
   def alreadyexist?
-    category=Category.where('lower(name) = ?', self[:name].downcase).first
-
-    if category
+    if Category.exists?(['lower(name) LIKE ?', self[:name].downcase])
       true
     else
       false

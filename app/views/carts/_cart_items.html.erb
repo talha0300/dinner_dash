@@ -15,7 +15,7 @@
         <th> <strong> <%= link_to item[:title],item_path(item[:id])%> </strong></th>
         <th><%= item[:quantity]%></th>
 
-        <th><%= item[:price]*item[:quantity]%></th>
+        <th><%= item.item_price %></th>
         <% if view==='cart'%>
         <th> <%= link_to 'Remove', item_cart_path(item_id:item[:id]), method: :delete, data: { confirm: 'Are you sure?' } ,remote: true,class:"btn-link"%> </th>
         <%end%>

@@ -9,7 +9,7 @@ class ItemsController < ApplicationController
   end
 
   def show
-    @item=Item.find_by(id:params[:id])
+    @item=Item.find(params[:id])
   end
 
   def new
@@ -20,7 +20,7 @@ class ItemsController < ApplicationController
     @item=Item.new(item_params)
     authorize @item
     if @item.save
-      redirect_to root_path
+      redirect_to @item
     else
       render new_item_path
     end
@@ -49,14 +49,11 @@ class ItemsController < ApplicationController
 
   def toggle_retire
     authorize @item,:update?
-    if params[:type]==="retired"
-      @item.update(retird:false)
-      redirect_to items_path,:flash => { :success => "Successfully UnRetired an item" }
+    if @item.update(retired:!@item.retired)
+      redirect_to items_path,:flash => { :success => "Successfull changed status of the item" }
     else
-      @item.update(retird:true)
-      redirect_to items_path,:flash => { :success => "Successfully retired an item" }
+      redirect_to items_path,:flash => { :error => "Operation failed" }
     end
-
   end
 
 
@@ -65,7 +62,7 @@ class ItemsController < ApplicationController
       params.require(:item).permit(:title,:description,:price,:image)
     end
     def set_item
-      @item = Item.find_by(id:params[:id])
+      @item = Item.find(params[:id])
     end
     def get_filter
       if params[:Category]

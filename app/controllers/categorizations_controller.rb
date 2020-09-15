@@ -2,23 +2,20 @@ class CategorizationsController < ApplicationController
   before_action :set_data, only: [:new]
   before_action :set_categorization,only: [:destroy]
   add_flash_types :error,:warning
+  before_action :authorization
 
 
   def index
-    authorize Item,:create?, policy_class:ItemPolicy
     @categorizations=Categorization.get_assigned_categories
   end
 
 
 
   def new
-    authorize Item,:create?, policy_class:ItemPolicy
     @categorization=Categorization.new
-
   end
 
   def create
-    authorize Item,:create?, policy_class:ItemPolicy
     item=Item.find_by(title:params[:categorization][:item])
     category=Category.find_by(name:params[:categorization][:category])
     if item && category
@@ -34,7 +31,6 @@ class CategorizationsController < ApplicationController
   end
 
   def destroy
-    authorize Item,:create?, policy_class:ItemPolicy
     session[:return_to] ||= request.referer
     if @categorization.destroy
       redirect_to session.delete(:return_to),:flash => { :success => "Successfully unassigned category to item" }
@@ -44,7 +40,7 @@ class CategorizationsController < ApplicationController
   end
 
   private
-
+  
     def set_categorization
       @categorization = Categorization.find(params[:id])
     end
