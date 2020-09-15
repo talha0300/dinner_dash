@@ -5,14 +5,20 @@ class Item < ApplicationRecord
   has_many :cart_items
   has_many :carts,through: :cart_items
 
+  has_many:favourite_items
 
-  def self.get_items(filter)
-    if !filter or filter==="all"
+
+  def self.get_items(params)
+    if !params[:filter] or params[:filter]==="all"
       Item.all
+    elsif params[:filter]==="favourite"
+      Item.joins(:favourite_items).where("user_id=#{params[:user].id}")
     else
-      Item.joins(:categories).where("categories.name":"#{filter}")
+      Item.joins(:categories).where("categories.name":"#{params[:filter]}")
     end
   end
+
+  
 
 
 end

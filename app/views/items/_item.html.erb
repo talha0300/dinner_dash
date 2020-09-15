@@ -18,5 +18,12 @@
     <%else%>
       <figcaption class="figure-caption text-right"><span>NOt Available</span></figcaption>
     <%end%>
+    <% if user_signed_in? &&  !policy(Item).create?%>
+      <% if current_user.favourite_items.exists?(item_id:item.id)%>
+        <figcaption class="figure-caption text-right"><%= link_to "Remove From Favourite",toggle_favourite_item_path(item.id),method: :post,type:"button",class:"btn" %></figcaption>
+      <% else %>
+        <figcaption class="figure-caption text-right"> <%= link_to "Add to Favourite",toggle_favourite_item_path(item.id),method: :post,type:"button",class:"btn" %></figcaption>
+      <% end %>
+    <% end %>
     <%= render 'item_links',item: item%>
 </div>

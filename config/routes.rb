@@ -29,6 +29,7 @@ Rails.application.routes.draw do
     member do
       post 'toggle_retire'
       post 'filter'
+      post 'toggle_favourite'
     end
   end
   resources :users, only: [:show,:index]

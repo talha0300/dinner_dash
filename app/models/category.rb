@@ -7,6 +7,7 @@ class Category < ApplicationRecord
 
   def self.get_categories(filter)
     categories=Category.all.pluck(:name)
+    categories.unshift('favourite')
     categories.unshift('all')
     if filter
       categories.unshift(categories.delete(filter))

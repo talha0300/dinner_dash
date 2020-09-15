@@ -3,7 +3,7 @@ class ItemsController < ApplicationController
 
   def index
 
-    @items=Item.get_items(get_filter)
+    @items=Item.get_items(user:current_user,filter:get_filter)
     @categories=Category.get_categories(get_filter)
 
   end
@@ -54,6 +54,16 @@ class ItemsController < ApplicationController
     else
       redirect_to items_path,:flash => { :error => "Operation failed" }
     end
+  end
+
+  def toggle_favourite
+    session[:return_to] ||= request.referer
+    if !current_user.favourite_items.exists?(item_id:params[:id])
+      FavouriteItem.add_item(user:current_user,item_id:params[:id])
+    else
+      FavouriteItem.remove_item(user:current_user,item_id:params[:id])
+    end
+    redirect_to session.delete(:return_to), success:"added to favourite"
   end
 
 
