@@ -20,6 +20,7 @@ class OrdersController < ApplicationController
     if @order
       cart=Cart.get_new_cart(current_user.id)
       session[:shopping_cart]=cart
+      OrderMailer.with(order: @order).new_order_email.deliver_now
       redirect_to @order, flash:{ success:"Successfully placed an order" }
     else
       redirect_to @cart, flash:{ success:"Operation Failed" }
