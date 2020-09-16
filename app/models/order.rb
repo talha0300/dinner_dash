@@ -1,5 +1,6 @@
 class Order < ApplicationRecord
   belongs_to :cart
+  belongs_to :user
   enum status: [:ordered,:completed,:cancelled,:paid]
   TYPE={ordered:"ordered",completed:"completed",cancelled:"cancelled",paid:"paid",all:"all"}
 
