@@ -4,7 +4,7 @@ class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   enum role: [:standard,:admin]
-  devise :database_authenticatable, :registerable,:recoverable, :rememberable, :validatable
+  devise :database_authenticatable, :registerable,:recoverable, :rememberable, :validatable,:confirmable
 
   after_initialize do
     if self.new_record?
@@ -23,6 +23,7 @@ class User < ApplicationRecord
 
   def self.save_guest
     user= User.new(user_name:"guest#{(0...rand(25)).map { (65 + rand(26)).chr }.join}",email:"guest#{(0...rand(25)).map { (65 + rand(26)).chr }.join}@unknown.com")
+    user.skip_confirmation!
     user.save(validate: false)
     user
   end

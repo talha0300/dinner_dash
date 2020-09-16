@@ -40,7 +40,7 @@ class ApplicationController < ActionController::Base
   def create_guest
 
     if !(user_signed_in? || session[:guest])
-
+      
       session[:guest_user_id]=save_guest.id
 
     end

@@ -1,7 +1,7 @@
 class OrderMailer < ApplicationMailer
   def new_order_email
-    @order = params[:order]
+    user = params[:user][:email]
 
-    mail(to: "unknown@example.com", subject: "You placed an order")
+    mail(to: user, subject: "You placed an order")
   end
 end

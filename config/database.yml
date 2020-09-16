@@ -20,6 +20,15 @@ test:
   <<: *default
   database: db/test.sqlite3
 
+#production:
+#  <<: *default
+#  database: db/production.sqlite3
+
 production:
-  <<: *default
-  database: db/production.sqlite3
+  adapter: postgresql
+  encoding: unicode
+  host: localhost
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  database: DinerDash_production
+  username: DinerDash
+  password: <%= ENV['DINERDASH_DATABASE_PASSWORD'] %>
