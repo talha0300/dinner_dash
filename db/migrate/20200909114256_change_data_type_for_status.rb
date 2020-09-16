@@ -1,7 +1,7 @@
 class ChangeDataTypeForStatus < ActiveRecord::Migration[5.2]
   def self.up
     change_table :orders do |t|
-      t.change :status, :integer,null: false
+      t.change :status, :integer,null: false,using: 'status::integer'
     end
   end
   def self.down
