@@ -37,9 +37,9 @@ class OrdersController < ApplicationController
 
 
 
-  # For Admin
+  
   def single_order
-    
+
   end
 
   #for admin
