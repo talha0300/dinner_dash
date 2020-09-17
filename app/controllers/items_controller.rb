@@ -42,7 +42,7 @@ class ItemsController < ApplicationController
   def destroy
     authorize @item
     if @item.destroy
-      redirect_to items_path
+      redirect_to items_path, flash:{ success:"Successfull changed status of the item" }
     end
   end
 

@@ -39,7 +39,7 @@ class OrdersController < ApplicationController
 
   # For Admin
   def single_order
-    authorize Item,:create?, policy_class:ItemPolicy
+    
   end
 
   #for admin

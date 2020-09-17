@@ -12,7 +12,12 @@ class ItemPolicy < ApplicationPolicy
 
   def update?
     user ? user.admin? : false
-    
+
+  end
+
+  def destroy?
+    user ? user.admin? : false
+
   end
 
 
